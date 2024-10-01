@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.tablero {
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+.tablero td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.ganador-mensaje {
+    display: none;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+#ganadorMensaje.active {
+    display: block;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
