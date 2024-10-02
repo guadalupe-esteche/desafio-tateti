@@ -5,24 +5,29 @@ const botonReiniciar = document.getElementById("reiniciarBoton");
 
 let turnoDeX = true; //indica si es turno del jugador x (true) o del jugador o (false)
 const combinacionesGanadoras = [ //array con combinaciones posibles ganadoras (vertical, horizontal y diagonal)
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+    [0, 1, 2], //fila superior
+    [3, 4, 5], //fila central
+    [6, 7, 8], // fila inferior
+
+    [0, 3, 6], // columna izquierda
+    [1, 4, 7], // columna central 
+    [2, 5, 8], // columna derecha
+
+    [0, 4, 8], // diagonal principal
+    [2, 4, 6] // diagonal inversa
 ];
 
-iniciarJuego();
+iniciarJuego(); 
+//se llama al principio del código para iniciar el juego. También se ejecuta cuando se hace clic en el botón de reinici
 
 botonReiniciar.addEventListener("click", iniciarJuego);
+/* añade un evento al botón de reinicio. 
+Cuando se hace clic, se vuelve a ejecutar la función iniciarJuego para empezar una nueva partida */
 
 function iniciarJuego() {
     turnoDeX = true; // se asegura de que el jugador x empiece el juego 
     celdas.forEach(celda => {
-        celda.classList.remove("x"); //limpia las celdas
+        celda.classList.remove("x"); //remueve las clases x y o
         celda.classList.remove("o");
         celda.textContent = "";  //limpia el contenido de la celda
         celda.removeEventListener("click", manejarClick); //quita cualquier evento anterior
