@@ -1,10 +1,10 @@
-const cells = document.querySelectorAll("[data-cell]");
-const winnerMessageElement = document.getElementById("ganadorMensaje");
-const winnerElement = document.getElementById("ganador");
-const restartButton = document.getElementById("reiniciarBoton");
+const celdas = document.querySelectorAll("[data-cell]");
+const mensajeGanadorElemento = document.getElementById("ganadorMensaje");
+const ganadorElemento = document.getElementById("ganador");
+const botonReiniciar = document.getElementById("reiniciarBoton");
 
-let isXTurn = true;
-const winningCombinations = [
+let turnoDeX = true; //indica si es turno del jugador x (true) o del jugador o (false)
+const combinacionesGanadoras = [ //array con combinaciones posibles ganadoras (vertical, horizontal y diagonal)
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -15,62 +15,62 @@ const winningCombinations = [
     [2, 4, 6]
 ];
 
-startGame();
+iniciarJuego();
 
-restartButton.addEventListener("click", startGame);
+botonReiniciar.addEventListener("click", iniciarJuego);
 
-function startGame() {
-    isXTurn = true;
-    cells.forEach(cell => {
-        cell.classList.remove("x");
-        cell.classList.remove("o");
-        cell.textContent = "";  // Limpiar el contenido del texto
-        cell.removeEventListener("click", handleClick);
-        cell.addEventListener("click", handleClick, { once: true });
+function iniciarJuego() {
+    turnoDeX = true; // se asegura de que el jugador x empiece el juego 
+    celdas.forEach(celda => {
+        celda.classList.remove("x"); //limpia las celdas
+        celda.classList.remove("o");
+        celda.textContent = "";  //limpia el contenido de la celda
+        celda.removeEventListener("click", manejarClick); //quita cualquier evento anterior
+        celda.addEventListener("click", manejarClick, { once: true }); //añade un nuevo evento click para que se pueda marcar la celda solo una vez
     });
-    winnerMessageElement.classList.remove("active");
+    mensajeGanadorElemento.classList.remove("active"); //oculta el mensaje de ganador al iniciar una partida
 }
 
-function handleClick(e) {
-    const cell = e.target;
-    const currentClass = isXTurn ? "x" : "o";
-    placeMark(cell, currentClass);
-    if (checkWin(currentClass)) {
-        endGame(false);
-    } else if (isDraw()) {
-        endGame(true);
+function manejarClick(e) {
+    const celda = e.target; //obtiene la celda en la que el jugador hizo click
+    const claseActual = turnoDeX ? "x" : "o"; //depende de si es el turno de x o o, se asigna la clase correspondiente
+    colocarMarca(celda, claseActual); //coloca una x o o en donde se hizo click
+    if (verificarGanador(claseActual)) { //verfica si el jugador actual ha ganado despues de colocar su marca
+        finalizarJuego(false); //si el jugador ha ganado, se termina el juego
+    } else if (esEmpate()) {
+        finalizarJuego(true); //si es empate (todas las celdas ocupadas sin que haya un ganador), se termina el juego
     } else {
-        swapTurns();
+        cambiarTurno(); //si no hay ganador ni empate, cambia de turno
     }
 }
 
-function placeMark(cell, currentClass) {
-    cell.textContent = currentClass.toUpperCase();  // Muestra X o O en la celda
+function colocarMarca(celda, claseActual) {
+    celda.textContent = claseActual.toUpperCase();  //muestra X o O en la celda
 }
 
-function swapTurns() {
-    isXTurn = !isXTurn;
+function cambiarTurno() {
+    turnoDeX = !turnoDeX; //invierte el turno entre el jugador x y el jugador o
 }
 
-function checkWin(currentClass) {
-    return winningCombinations.some(combination => {
-        return combination.every(index => {
-            return cells[index].textContent === currentClass.toUpperCase();
+function verificarGanador(claseActual) {
+    return combinacionesGanadoras.some(combinacion => {
+        return combinacion.every(indice => {
+            return celdas[indice].textContent === claseActual.toUpperCase();
         });
-    });
+    });//recorre todas las cominaciones ganadoras posbles y verifica si alguna combinacion se cumple
 }
 
-function isDraw() {
-    return [...cells].every(cell => {
-        return cell.textContent === "X" || cell.textContent === "O";
+function esEmpate() {
+    return [...celdas].every(celda => {
+        return celda.textContent === "X" || celda.textContent === "O";
     });
-}
+} //verifica si todas las celdas estan ocupadas y no hay ganador, significa que es un empate
 
-function endGame(draw) {
-    if (draw) {
-        winnerElement.innerText = "Empate";
+function finalizarJuego(empate) {
+    if (empate) {
+        ganadorElemento.innerText = "Empate"; //muestra empate en el mensaje ganador
     } else {
-        winnerElement.innerText = isXTurn ? "X" : "O";
+        ganadorElemento.innerText = turnoDeX ? "X" : "O"; //si hay un ganador, se muestra que el jugdor ganó
     }
-    winnerMessageElement.classList.add("active");
+    mensajeGanadorElemento.classList.add("active"); //muestra el mensaje de ganador en la pantalla
 }
