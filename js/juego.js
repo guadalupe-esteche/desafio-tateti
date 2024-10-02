@@ -73,9 +73,9 @@ function esEmpate() {
 
 function finalizarJuego(empate) {
     if (empate) {
-        ganadorElemento.innerText = "Empate"; //muestra empate en el mensaje ganador
+        ganadorElemento.innerText = "Empate"; //muestra empate en el mensaje
     } else {
-        ganadorElemento.innerText = turnoDeX ? "X" : "O"; //si hay un ganador, se muestra que el jugdor ganó
+        ganadorElemento.innerText = turnoDeX ? "X ganaste!" : "O ganaste!"; //si hay un ganador, se muestra que el jugador ganó
     }
     mensajeGanadorElemento.classList.add("active"); //muestra el mensaje de ganador en la pantalla
 }
