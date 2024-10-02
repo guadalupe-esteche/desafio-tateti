@@ -5,7 +5,15 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    font-family:'Courier New', Courier, monospace
+    font-family:'Courier New', Courier, monospace;
+}
+
+.body-index{
+    background: linear-gradient(#ffffb3,#ff734c);
+}
+
+.body-juego{
+    background-color: #ffffbb;
 }
 
 h1 {
