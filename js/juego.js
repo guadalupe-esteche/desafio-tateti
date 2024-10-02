@@ -1,7 +1,7 @@
 const cells = document.querySelectorAll("[data-cell]");
-const winnerMessageElement = document.getElementById("winnerMessage");
-const winnerElement = document.getElementById("winner");
-const restartButton = document.getElementById("restartButton");
+const winnerMessageElement = document.getElementById("ganadorMensaje");
+const winnerElement = document.getElementById("ganador");
+const restartButton = document.getElementById("reiniciarBoton");
 
 let isXTurn = true;
 const winningCombinations = [
