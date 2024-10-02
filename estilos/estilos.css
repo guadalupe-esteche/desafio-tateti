@@ -5,7 +5,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family:'Courier New', Courier, monospace
 }
 
 h1 {
@@ -54,3 +54,12 @@ button {
     padding: 10px 20px;
     font-size: 16px;
 }
+
+.x {
+    background-image: url('imagenes/x.png');
+}
+
+.o {
+    background-image: url('imagenes/circulo.png');
+}
+

@@ -1,8 +1,7 @@
 const cells = document.querySelectorAll("[data-cell]");
-const tablero = document.querySelector(".tablero");
-const ganadorMensaje = document.getElementById("ganadorMensaje");
-const ganadorElemento = document.getElementById("ganador");
-const reiniciar = document.getElementById("reiniciarBoton");
+const winnerMessageElement = document.getElementById("winnerMessage");
+const winnerElement = document.getElementById("winner");
+const restartButton = document.getElementById("restartButton");
 
 let isXTurn = true;
 const winningCombinations = [
@@ -25,6 +24,7 @@ function startGame() {
     cells.forEach(cell => {
         cell.classList.remove("x");
         cell.classList.remove("o");
+        cell.textContent = "";  // Limpiar el contenido del texto
         cell.removeEventListener("click", handleClick);
         cell.addEventListener("click", handleClick, { once: true });
     });
@@ -45,7 +45,7 @@ function handleClick(e) {
 }
 
 function placeMark(cell, currentClass) {
-    cell.classList.add(currentClass);
+    cell.textContent = currentClass.toUpperCase();  // Muestra X o O en la celda
 }
 
 function swapTurns() {
@@ -55,22 +55,22 @@ function swapTurns() {
 function checkWin(currentClass) {
     return winningCombinations.some(combination => {
         return combination.every(index => {
-            return cells[index].classList.contains(currentClass);
+            return cells[index].textContent === currentClass.toUpperCase();
         });
     });
 }
 
 function isDraw() {
     return [...cells].every(cell => {
-        return cell.classList.contains("x") || cell.classList.contains("o");
+        return cell.textContent === "X" || cell.textContent === "O";
     });
 }
 
 function endGame(draw) {
     if (draw) {
-        ganadorElemento.innerText = "Empate";
+        winnerElement.innerText = "Empate";
     } else {
-        ganadorElemento.innerText = isXTurn ? "X" : "O";
+        winnerElement.innerText = isXTurn ? "X" : "O";
     }
-    ganadorMensaje.classList.add("active");
+    winnerMessageElement.classList.add("active");
 }
